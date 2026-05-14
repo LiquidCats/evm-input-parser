@@ -137,7 +137,7 @@ func ReadBytesArrayElements(params []byte, arrayOffset int) ([][]byte, error) {
 	elemBase := arrayOffset + wordSize // first element offset pointer
 	elements := make([][]byte, 0, count)
 
-	for i := 0; i < count; i++ {
+	for i := range count {
 		ptrOffset := elemBase + i*wordSize
 		relOffset, err := ReadOffsetAt(params, ptrOffset)
 		if err != nil {
