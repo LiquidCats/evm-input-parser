@@ -14,7 +14,6 @@ type Decoder interface {
 
 type Parser struct {
 	decoders []Decoder
-	maxDepth int
 }
 
 func New(codecs ...Decoder) *Parser {
@@ -31,7 +30,7 @@ func (p *Parser) Parse(data types.RawInputData) (*types.ParsedInputData, error) 
 		return nil, fmt.Errorf("invalid hex data: %w", err)
 	}
 
-	sel := types.Selector(hexData[:4])
+	sel := types.SelectorFromBytes(hexData[:4])
 	params := types.InputParams(hexData[4:])
 
 	for _, codec := range p.decoders {
